@@ -1,0 +1,176 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: rgb(221, 253, 255);
+}
+
+h1 {
+    background-color: rgb(94, 41, 147);
+    color: white;
+    height: 5rem;
+    text-align: center;
+    line-height: 5rem;
+    font-family: monospace;
+    font-size: 2.3rem;
+}
+
+.choice {
+    height: 165px;
+    width: 165px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+img {
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.choices {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    margin-top: 5rem;
+    transition: transform 0.3s ease-in-out;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+}
+
+.choice:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    /* opacity: 0.5; */
+    /* background-color: black; */
+}
+
+.scoreboard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    margin-top: 5rem;
+    gap: 4rem;
+    text-align: center;
+}
+
+#userscore,
+#compscore {
+    font-size: 3rem;
+}
+
+.msgcontainer {
+    text-align: center;
+    margin-top: 4rem;
+}
+
+#msg {
+    background-color: black;
+    color: white;
+    font-size: 1.5rem;
+    display: inline;
+    padding: 1rem;
+    border-radius: 0.7rem;
+}
+
+.resetMain {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+.resetGame {
+    height: 2.5rem;
+    width: 5rem;
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    text-align: center;
+    line-height: 2.5rem;
+    font-size: 1.1rem;
+    border-radius: 0.7rem;
+    display: inline;
+    border: 1px solid black;
+}
+
+.resetGame:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    h1 {
+        height: 4rem;
+        line-height: 4rem;
+        font-size: 1.5rem;
+    }
+
+    .choice {
+        height: 120px;
+        width: 120px;
+    }
+
+    img {
+        height: 110px;
+        width: 110px;
+    }
+
+    .scoreboard {
+        font-size: 1.2rem;
+    }
+
+    #userscore,
+    #compscore {
+        font-size: 2rem;
+    }
+
+    #msg {
+        font-size: 1rem;
+    }
+
+    .resetGame {
+        width: 3.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 500px) {
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    .choice {
+        height: 90px;
+        width: 90px;
+    }
+
+    img {
+        height: 80px;
+        width: 80px;
+    }
+
+    .scoreboard {
+        font-size: 1rem;
+    }
+
+    #userscore,
+    #compscore {
+        font-size: 1.5rem;
+    }
+
+    #msg {
+        font-size: 0.9rem;
+        padding: 0.8rem;
+    }
+
+    .resetGame {
+        width: 3rem;
+        font-size: 0.8rem;
+    }
+}
