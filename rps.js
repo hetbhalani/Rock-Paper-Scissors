@@ -21,9 +21,14 @@ const playGame = (userChoice) => {
     const compChoice = genCompChoice();
     // console.log("Comp's Choice is:",compChoice);
 
+    if(userScore == 10 || compScore == 10){
+        return;
+    }
+
     if (userChoice == compChoice) {
         gameDraw();
         return;
+        
     }
     else {
 
@@ -52,6 +57,7 @@ const gameDraw = () => {
     // console.log("It's a Draw");
     msg.innerText = "It's a Draw!";
     msg.style.backgroundColor = "black";
+
 }
 
 const showWinner = (userWin, userChoice, compChoice) => {
@@ -59,8 +65,11 @@ const showWinner = (userWin, userChoice, compChoice) => {
         // console.log("You Won");
         msg.innerText = `You Won. ${userChoice} beats ${compChoice}`;
         msg.style.backgroundColor = "green";
+
+        if(userScore < 10 && compScore < 10){
         userScore++;
         uscore.innerText = userScore;
+        }
 
         if (userScore == 10) {
             const start = () => {
@@ -72,17 +81,28 @@ const showWinner = (userWin, userChoice, compChoice) => {
 
             msg.innerText = "Hurray!!! You Won the Game!";
             msg.style.backgroundColor = "green";
+            reset();
+            disable();
         }
+        
     }
     else {
         // console.log("You Lost");
         msg.innerText = `You Lost. ${compChoice} beats ${userChoice}`;
         msg.style.backgroundColor = "red";
+
+        if(compScore < 10 && userScore < 10){
         compScore++;
         cscore.innerText = compScore;
+        }
+
+       
         if(compScore == 10){
-            msg.innerText = "You Lost the Game!";
+            msg.innerText = "Game Over!";
             msg.style.backgroundColor = "darkred";
+            reset();
+            disable();
+           
         }
     }
 }
@@ -93,11 +113,53 @@ resetBTN.addEventListener("click", () => {
     uscore.innerText = userScore;
     cscore.innerText = compScore;
     msg.innerText = "Play Again!";
-    msg.style.backgroundColor = "black"
+    msg.style.backgroundColor = "black";
+    
+
     const stop = () => {
         setTimeout(function() {
             confetti.stop()
         }, 100); 
     };
     stop();
+    enable();
 })
+
+const reset = () => {
+    setTimeout (() => {
+    userScore = 0;
+    compScore = 0;
+    uscore.innerText = userScore;
+    cscore.innerText = compScore;
+    msg.innerText = "Play Again!";
+    msg.style.backgroundColor = "black"
+    
+    const stop = () => {
+        setTimeout(function() {
+            confetti.stop()
+        }, 100); 
+    };
+    stop();
+    enable();
+
+    }, 5000);
+
+    
+}
+
+const disable = () => {
+    choices.forEach((choice) => {
+        choice.disabled = true;
+        choice.style.opacity = 0.5;   
+      });
+    // msg.innerText = "Gsme Over!"
+    // msg.style.backgroundColor = " yellow"  
+};
+
+const enable = () =>{
+    choices.forEach((choice) => {
+        choice.disabled = false;
+        choice.style.opacity = 1;
+        // choice.style.backgroundColor = ""   
+      });
+}
