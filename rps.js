@@ -82,7 +82,7 @@ const showWinner = (userWin, userChoice, compChoice) => {
             msg.innerText = "Hurray!!! You Won the Game!";
             msg.style.backgroundColor = "green";
             winSound.play();
-            winSound.volume = 0.1;
+            winSound.volume = 0.2;
             reset();
             disable();
             
