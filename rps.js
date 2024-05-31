@@ -82,6 +82,7 @@ const showWinner = (userWin, userChoice, compChoice) => {
             msg.innerText = "Hurray!!! You Won the Game!";
             msg.style.backgroundColor = "green";
             winSound.play();
+            winSound.volume = 0.1;
             reset();
             disable();
             
@@ -103,6 +104,7 @@ const showWinner = (userWin, userChoice, compChoice) => {
             msg.innerText = "Game Over!";
             msg.style.backgroundColor = "darkred";
             loseSound.play();
+            loseSound.volume = 0.2;
             reset();
             disable();
            
