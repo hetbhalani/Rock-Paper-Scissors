@@ -1,3 +1,6 @@
+// Fixing the bug of reset button while user win or lose the game and while click on the reset button than the score is changed automatically because of setTimwout function is called and it is reset the score after 5 seconds.. I'll make changes in your code my suggestion is if you change timing of the function or disable the reset button while user win or lose the game so that the code is working properly....
+
+
 let userScore = 0;
 let compScore = 0;
 
@@ -7,19 +10,15 @@ const uscore = document.querySelector("#userscore");
 const cscore = document.querySelector("#compscore");
 const resetBTN = document.querySelector("#resetbtn");
 
-
 const genCompChoice = () => {
     let option = ["rock", "paper", "scissors"]
     const rndIdx = Math.floor(Math.random() * 3);
     return option[rndIdx];
-    
 }
 
 const playGame = (userChoice) => {
     let userWin;
-    // console.log("User's Choice is:",userChoice);
     const compChoice = genCompChoice();
-    // console.log("Comp's Choice is:",compChoice);
 
     if(userScore == 10 || compScore == 10){
         return;
@@ -28,10 +27,8 @@ const playGame = (userChoice) => {
     if (userChoice == compChoice) {
         gameDraw();
         return;
-        
     }
     else {
-
         if (userChoice == "rock") {
             userWin = compChoice == "paper" ? false : true;
         }
@@ -48,33 +45,30 @@ const playGame = (userChoice) => {
 choices.forEach((choice) => {
     choice.addEventListener("click", () => {
         const userChoice = choice.getAttribute("id");
-        // console.log("choice is clicked" , userChoice)
         playGame(userChoice);
     });
 });
 
 const gameDraw = () => {
-    // console.log("It's a Draw");
     msg.innerText = "It's a Draw!";
     msg.style.backgroundColor = "black";
-
 }
 
 const showWinner = (userWin, userChoice, compChoice) => {
     if (userWin) {
-        // console.log("You Won");
         msg.innerText = `You Won. ${userChoice} beats ${compChoice}`;
         msg.style.backgroundColor = "green";
 
         if(userScore < 10 && compScore < 10){
-        userScore++;
-        uscore.innerText = userScore;
+            userScore++;
+            uscore.innerText = userScore;
         }
 
         if (userScore == 10) {
             const start = () => {
                 setTimeout(function () {
-                    confetti.start()
+                    confetti.start();
+                    resetBTN.disabled = true; // Reset BTN disabled
                 }, 100);
             };
             start();
@@ -85,21 +79,17 @@ const showWinner = (userWin, userChoice, compChoice) => {
             winSound.volume = 0.2;
             reset();
             disable();
-            
         }
-        
     }
     else {
-        // console.log("You Lost");
         msg.innerText = `You Lost. ${compChoice} beats ${userChoice}`;
         msg.style.backgroundColor = "red";
 
         if(compScore < 10 && userScore < 10){
-        compScore++;
-        cscore.innerText = compScore;
+            compScore++;
+            cscore.innerText = compScore;
         }
 
-       
         if(compScore == 10){
             msg.innerText = "Game Over!";
             msg.style.backgroundColor = "darkred";
@@ -107,7 +97,7 @@ const showWinner = (userWin, userChoice, compChoice) => {
             loseSound.volume = 0.2;
             reset();
             disable();
-           
+            resetBTN.disabled = true; // Disable reset button when player loses
         }
     }
 }
@@ -119,54 +109,49 @@ resetBTN.addEventListener("click", () => {
     cscore.innerText = compScore;
     msg.innerText = "Play Again!";
     msg.style.backgroundColor = "black";
-    
 
     const stop = () => {
         setTimeout(function() {
-            confetti.stop()
-        }, 100); 
+            confetti.stop();
+            resetBTN.disabled = false;
+        }, 100);
     };
     stop();
     enable();
-})
+});
 
 const reset = () => {
-    setTimeout (() => {
-    userScore = 0;
-    compScore = 0;
-    uscore.innerText = userScore;
-    cscore.innerText = compScore;
-    msg.innerText = "Play Again!";
-    msg.style.backgroundColor = "black"
-    
-    const stop = () => {
-        setTimeout(function() {
-            confetti.stop()
-        }, 100); 
-    };
-    stop();
-    enable();
+    setTimeout(() => {
+        userScore = 0;
+        compScore = 0;
+        uscore.innerText = userScore;
+        cscore.innerText = compScore;
+        msg.innerText = "Play Again!";
+        msg.style.backgroundColor = "black";
 
+        const stop = () => {
+            setTimeout(function() {
+                confetti.stop();
+            }, 100);
+        };
+        stop();
+        enable();
+        // No need to enable reset button here as it's already enabled when the player wins
     }, 5000);
-
-    
 }
 
 const disable = () => {
     choices.forEach((choice) => {
         choice.disabled = true;
-        choice.style.opacity = 0.5;   
-      });
-    // msg.innerText = "Gsme Over!"
-    // msg.style.backgroundColor = " yellow"  
+        choice.style.opacity = 0.5;
+    });
 };
 
-const enable = () =>{
+const enable = () => {
     choices.forEach((choice) => {
         choice.disabled = false;
         choice.style.opacity = 1;
-        // choice.style.backgroundColor = ""   
-      });
+    });
 }
 
 const winSound = new Audio('./win.mp3');
