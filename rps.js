@@ -62,6 +62,7 @@ const showWinner = (userWin, userChoice, compChoice) => {
         if(userScore < 10 && compScore < 10){
             userScore++;
             uscore.innerText = userScore;
+            resetBTN();
         }
 
         if (userScore == 10) {
@@ -88,6 +89,7 @@ const showWinner = (userWin, userChoice, compChoice) => {
         if(compScore < 10 && userScore < 10){
             compScore++;
             cscore.innerText = compScore;
+            resetBtn();
         }
 
         if(compScore == 10){
