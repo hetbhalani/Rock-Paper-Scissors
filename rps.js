@@ -62,26 +62,42 @@ const showWinner = (userWin, userChoice, compChoice) => {
         if(userScore < 10 && compScore < 10){
             userScore++;
             uscore.innerText = userScore;
-            resetBTN();
+            // resetBTN();
         }
 
-        if (userScore == 10) {
-            const start = () => {
-                setTimeout(function () {
-                    confetti.start();
-                    resetBTN.disabled = true; // Reset BTN disabled
-                }, 100);
-            };
-            start();
+    //     if (userScore == 10) {
+    //         const start = () => {
+    //             setTimeout(function () {
+    //                 confetti.start();
+    //                 resetBTN.disabled = true; // Reset BTN disabled
+    //             }, 100);
+    //         };
+    //         start();
 
-            msg.innerText = "Hurray!!! You Won the Game!";
-            msg.style.backgroundColor = "green";
-            winSound.play();
-            winSound.volume = 0.2;
-            reset();
-            disable();
-        }
+    //         msg.innerText = "Hurray!!! You Won the Game!";
+    //         msg.style.backgroundColor = "green";
+    //         winSound.play();
+    //         winSound.volume = 0.2;
+    //         reset();
+    //         disable();
+    //     }
+    // }
+    if (userScore == 10) {
+        msg.innerText = "Hurray!!! You Won the Game!";
+        msg.style.backgroundColor = "green";
+        winSound.play();
+        winSound.volume = 0.2;
+        disable();
+        resetBTN.disabled = true; // Disable reset button while confetti is running
+        setTimeout(() => {
+            confetti.start();
+            setTimeout(() => {
+                confetti.stop();
+                resetBTN.disabled = false; // Enable reset button after confetti stops
+            }, 5000);
+        }, 100);
     }
+}
     else {
         msg.innerText = `You Lost. ${compChoice} beats ${userChoice}`;
         msg.style.backgroundColor = "red";
@@ -89,7 +105,7 @@ const showWinner = (userWin, userChoice, compChoice) => {
         if(compScore < 10 && userScore < 10){
             compScore++;
             cscore.innerText = compScore;
-            resetBtn();
+
         }
 
         if(compScore == 10){
