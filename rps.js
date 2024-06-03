@@ -140,6 +140,7 @@ const reset = () => {
     }, 5000);
 }
 
+
 const disable = () => {
     choices.forEach((choice) => {
         choice.disabled = true;
